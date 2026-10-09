@@ -1,10 +1,10 @@
 ﻿#Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_Icon=logo-RG.ico
-#AutoIt3Wrapper_Res_Fileversion=1.0.0.3
-#AutoIt3Wrapper_Res_Fileversion_AutoIncrement=y
 #AutoIt3Wrapper_Res_Description=RG - Inventaires
+#AutoIt3Wrapper_Res_Fileversion=1.0.0.4
+#AutoIt3Wrapper_Res_Fileversion_AutoIncrement=y
 #AutoIt3Wrapper_Res_ProductName=RG - Lanceur Inventaires
-#AutoIt3Wrapper_Res_ProductVersion=%fileversion%
+#AutoIt3Wrapper_Res_ProductVersion=1.0.0.5
 #AutoIt3Wrapper_Res_CompanyName=Rougegorge Lingerie
 #AutoIt3Wrapper_Res_LegalCopyright=Rougegorge Lingerie
 #AutoIt3Wrapper_Res_Language=1036
@@ -40,7 +40,8 @@
 ; ============================================
 ; Titre de la fenetre : sert aussi a retrouver l'instance deja
 ; ouverte. Il doit rester unique.
-Global Const $g_sTitreFenetre = "Inventaires - Rougegorge Lingerie"
+; Defini dans RG_Charte.au3 : les inventaires l'utilisent pour ramener le lanceur au premier plan
+Global Const $g_sTitreFenetre = $RG_TITRE_LANCEUR
 Global Const $g_sNomMutex = "RG_Lanceur_Inventaires"
 
 ; Dossier contenant les applications d'inventaire (.exe)

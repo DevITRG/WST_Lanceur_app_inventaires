@@ -1,0 +1,20 @@
+# ============================================================
+# Fichiers a ne jamais commiter dans les depots d'inventaire
+# Rougegorge (Prix Ronds, Stock negatif, Saison, Lanceur).
+# ============================================================
+
+# Executables compiles : ils contiennent le script, mot de passe
+# de la base compris (decompilables). Ils se joignent uniquement
+# aux releases GitHub, jamais aux sources du depot.
+*.exe
+*.a3x
+
+# Fichiers generes par AutoIt3Wrapper / SciTE a la compilation
+BackUp/
+*_stripped.au3
+*.au3.bak
+*.tmp
+
+# Fichiers systeme Windows
+Thumbs.db
+desktop.ini
