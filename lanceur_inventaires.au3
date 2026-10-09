@@ -4,7 +4,7 @@
 #AutoIt3Wrapper_Res_Fileversion=1.0.0.4
 #AutoIt3Wrapper_Res_Fileversion_AutoIncrement=y
 #AutoIt3Wrapper_Res_ProductName=RG - Lanceur Inventaires
-#AutoIt3Wrapper_Res_ProductVersion=1.0.0.5
+#AutoIt3Wrapper_Res_ProductVersion=%fileversion%
 #AutoIt3Wrapper_Res_CompanyName=Rougegorge Lingerie
 #AutoIt3Wrapper_Res_LegalCopyright=Rougegorge Lingerie
 #AutoIt3Wrapper_Res_Language=1036
