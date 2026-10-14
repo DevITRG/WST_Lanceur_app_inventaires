@@ -1,5 +1,27 @@
 ﻿# Changelog — Lanceur d'inventaires (`lanceur_inventaires.au3`)
 
+## [1.0.0.7] — 2026-10-13
+
+### Modifié
+- **Le guide s'ouvre dans une fenêtre dédiée, maximisée**, sans barre d'adresse ni barre de favoris : Chrome est lancé en mode application (`--app`, `--start-maximized`), ou Edge à défaut. Sans Chrome ni Edge, le guide s'ouvre dans le navigateur par défaut, comme en 1.0.0.5.
+- Si le navigateur ignore la demande de maximisation, par exemple parce qu'il est déjà ouvert, le lanceur attend la fenêtre du guide (5 s au plus) et la maximise lui-même.
+
+### Technique
+- Nouvelle fonction `CheminNavigateur()` : chemin de `chrome.exe` ou `msedge.exe`, lu dans la clé de registre `App Paths` (installation pour le poste ou pour l'utilisateur), puis dans les dossiers d'installation habituels.
+- Nouvelle variable `$g_sTitreGuide`, qui doit rester identique au `<title>` du guide : elle sert à retrouver la fenêtre pour la maximiser.
+- Le guide a désormais le logo RG comme icône, affichée dans la barre des tâches.
+- La version 1.0.0.6 (fenêtre en mode application de taille fixe) était une version de test, jamais publiée.
+
+## [1.0.0.5] — 2026-10-13
+
+### Ajouté
+- **Lien « Guide d'utilisation »** en bas de la fenêtre, à côté du numéro de version (« v1.0.0.5 · Guide d'utilisation ») : rouge et souligné, rouge foncé au survol, avec une infobulle. Un clic ouvre le guide de formation dans le navigateur par défaut.
+- Le guide est cherché dans le sous-dossier **`documentation\guide_inventaires.html`**, à côté du lanceur (avec son dossier `captures`). S'il est absent ou ne s'ouvre pas, un message invite à contacter la Hotline, et l'erreur est écrite dans le log (`[Inv Lanceur]`).
+
+### Technique
+- Nouvelle variable `$g_sFichierGuide` (chemin du guide), et nouvelles fonctions `OuvrirGuide()` et `LargeurTexteControle()`. Cette dernière mesure le texte avec la police réelle du libellé, pour que le lien reste collé à la version quelle que soit la mise à l'échelle de l'écran.
+- `RG_Charte.au3` est inchangé.
+
 ## [1.0.0.4] — 2026-10-09
 
 ### Technique
