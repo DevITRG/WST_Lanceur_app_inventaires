@@ -1,7 +1,7 @@
 ﻿#Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_Icon=logo-RG.ico
 #AutoIt3Wrapper_Res_Description=RG - Inventaires
-#AutoIt3Wrapper_Res_Fileversion=1.0.0.4
+#AutoIt3Wrapper_Res_Fileversion=1.0.0.7
 #AutoIt3Wrapper_Res_Fileversion_AutoIncrement=y
 #AutoIt3Wrapper_Res_ProductName=RG - Lanceur Inventaires
 #AutoIt3Wrapper_Res_ProductVersion=%fileversion%
@@ -33,6 +33,9 @@
 ;   ramenee au premier plan au lieu d'en lancer un second
 ;   (deux inventaires simultanes se bloqueraient sur Transfer.txt).
 ; - Une application absente est affichee grisee ("introuvable").
+; - Lien "Guide d'utilisation" en bas de la fenetre : ouvre
+;   documentation\guide_inventaires.html (a cote du lanceur),
+;   dans une fenetre Chrome/Edge sans barre d'adresse.
 ; ============================================================
 
 ; ============================================
@@ -46,6 +49,16 @@ Global Const $g_sNomMutex = "RG_Lanceur_Inventaires"
 
 ; Dossier contenant les applications d'inventaire (.exe)
 Global $g_sDossierApplis = @ScriptDir
+
+; Guide d'utilisation (lien en bas de la fenetre) : sous-dossier
+; "documentation" a cote du lanceur, avec son dossier "captures"
+Global $g_sFichierGuide = @ScriptDir & "\documentation\guide_inventaires.html"
+; Le guide s'ouvre dans une fenetre Chrome (ou Edge) en mode
+; application, maximisee, sans barre d'adresse ni barre de favoris.
+; Sans Chrome ni Edge, il s'ouvre dans le navigateur par defaut.
+; Titre de la fenetre = <title> du guide : sert a la maximiser
+; si le navigateur ignore --start-maximized (deja ouvert).
+Global $g_sTitreGuide = "Guide des inventaires en magasin"
 
 ; Applications proposees : [Libelle, Description, Fichier exe]
 ; Pour ajouter une application : ajouter une ligne et augmenter
@@ -177,6 +190,79 @@ Func LancerApplication($i)
 EndFunc
 
 ; ============================================
+; Ouverture du guide d'utilisation : fenetre Chrome ou Edge en
+; mode application, sinon navigateur par defaut
+; ============================================
+Func OuvrirGuide()
+    If Not FileExists($g_sFichierGuide) Then
+        EcrireLog("ERREUR : guide d'utilisation introuvable (" & $g_sFichierGuide & ")")
+        RG_MsgBox($MB_ICONERROR + $MB_TOPMOST, "Guide d'utilisation", _
+                "Le guide d'utilisation est introuvable." & @CRLF & @CRLF & _
+                "Merci de contacter la Hotline.")
+        Return
+    EndIf
+
+    ; Adresse file:/// du guide (espaces encodes)
+    Local $sUrl = "file:///" & StringReplace(StringReplace($g_sFichierGuide, "\", "/"), " ", "%20")
+    Local $aNavigateurs[2] = ["chrome.exe", "msedge.exe"]
+    For $sExe In $aNavigateurs
+        Local $sNavigateur = CheminNavigateur($sExe)
+        If $sNavigateur = "" Then ContinueLoop
+        If Run('"' & $sNavigateur & '" --app="' & $sUrl & '" --start-maximized') Then
+            ; Filet de securite : maximise la fenetre si elle ne l'est pas
+            Local $hFen = WinWait("[TITLE:" & $g_sTitreGuide & "]", "", 5)
+            If $hFen And Not BitAND(WinGetState($hFen), $WIN_STATE_MAXIMIZED) Then WinSetState($hFen, "", @SW_MAXIMIZE)
+            Return
+        EndIf
+    Next
+
+    If ShellExecute($g_sFichierGuide) = 0 Then
+        EcrireLog("ERREUR : ouverture du guide d'utilisation impossible (" & $g_sFichierGuide & ")")
+        RG_MsgBox($MB_ICONERROR + $MB_TOPMOST, "Guide d'utilisation", _
+                "Le guide d'utilisation n'a pas pu être ouvert." & @CRLF & @CRLF & _
+                "Merci de contacter la Hotline.")
+    EndIf
+EndFunc
+
+; Chemin complet d'un navigateur (chrome.exe, msedge.exe), "" s'il
+; n'est pas installe. Lu dans "App Paths" (installation machine ou
+; utilisateur), puis dans les dossiers d'installation habituels.
+Func CheminNavigateur($sExe)
+    Local $sCle = "\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\" & $sExe
+    Local $aRacines[3] = ["HKLM64", "HKLM", "HKCU"]
+    For $sRacine In $aRacines
+        Local $sChemin = StringReplace(RegRead($sRacine & $sCle, ""), '"', "")
+        If $sChemin <> "" And FileExists($sChemin) Then Return $sChemin
+    Next
+
+    Local $sSousDossier = "\Google\Chrome\Application\chrome.exe"
+    If $sExe = "msedge.exe" Then $sSousDossier = "\Microsoft\Edge\Application\msedge.exe"
+    Local $aDossiers[3] = [EnvGet("ProgramW6432"), EnvGet("ProgramFiles(x86)"), EnvGet("LOCALAPPDATA")]
+    For $sDossier In $aDossiers
+        If $sDossier <> "" And FileExists($sDossier & $sSousDossier) Then Return $sDossier & $sSousDossier
+    Next
+    Return ""
+EndFunc
+
+; Largeur en pixels du texte d'un libelle, mesuree avec sa propre
+; police (meme echelle que les coordonnees de la fenetre)
+Func LargeurTexteControle($id)
+    Local $sTexte = GUICtrlRead($id)
+    Local $hCtrl = GUICtrlGetHandle($id)
+    Local $aDC = DllCall("user32.dll", "handle", "GetDC", "hwnd", $hCtrl)
+    If @error Then Return 7 * StringLen($sTexte)
+    Local $hDC = $aDC[0]
+    Local $aFont = DllCall("user32.dll", "handle", "SendMessageW", "hwnd", $hCtrl, "uint", 0x31, "wparam", 0, "lparam", 0) ; WM_GETFONT
+    Local $aAncien = DllCall("gdi32.dll", "handle", "SelectObject", "handle", $hDC, "handle", $aFont[0])
+    Local $tRect = DllStructCreate("long;long;long;long")
+    ; DT_CALCRECT 0x400 | DT_SINGLELINE 0x20 | DT_NOPREFIX 0x800
+    DllCall("user32.dll", "int", "DrawTextW", "handle", $hDC, "wstr", $sTexte, "int", -1, "struct*", $tRect, "uint", 0xC20)
+    DllCall("gdi32.dll", "handle", "SelectObject", "handle", $hDC, "handle", $aAncien[0])
+    DllCall("user32.dll", "int", "ReleaseDC", "hwnd", $hCtrl, "handle", $hDC)
+    Return DllStructGetData($tRect, 3)
+EndFunc
+
+; ============================================
 ; CARTES
 ; ============================================
 
@@ -288,10 +374,20 @@ Func AfficherLanceur()
         CreerCarte($i, $Y_CARTES + $i * ($HAUTEUR_CARTE + $ECART_CARTES))
     Next
 
-    ; ===== Pied de page =====
-    $id = GUICtrlCreateLabel(VersionApplication(), 30, $iYPied + 6, 200, 18)
+    ; ===== Pied de page : version, puis lien vers le guide =====
+    ; Les largeurs sont ajustees au texte une fois la police appliquee
+    $id = GUICtrlCreateLabel(VersionApplication() & "  ·  ", 30, $iYPied + 6, 200, 18, $SS_NOPREFIX)
     GUICtrlSetFont($id, 8, 400, 0, $RG_POLICE, 5)
     GUICtrlSetColor($id, $RG_COUL_TEXTE_DOUX)
+    Local $iLargeurVersion = LargeurTexteControle($id) + 2
+    GUICtrlSetPos($id, 30, $iYPied + 6, $iLargeurVersion, 18)
+
+    Local $idGuide = RG_Bouton("Guide d'utilisation", 30 + $iLargeurVersion, $iYPied + 6, 200, 18, $RG_BOUTON_LIEN_ROUGE)
+    ; Meme alignement et meme police que la version, souligne
+    GUICtrlSetStyle($idGuide, BitOR($SS_NOTIFY, $SS_NOPREFIX))
+    GUICtrlSetFont($idGuide, 8, 400, 4, $RG_POLICE, 5)
+    GUICtrlSetPos($idGuide, 30 + $iLargeurVersion, $iYPied + 6, LargeurTexteControle($idGuide) + 2, 18)
+    GUICtrlSetTip($idGuide, "Ouvrir le guide d'utilisation des inventaires")
 
     Local $idQuitter = RG_Bouton("Quitter", $LARGEUR - 130, $iYPied + 2, 100, 24, $RG_BOUTON_LIEN_ROUGE)
     GUICtrlSetStyle($idQuitter, BitOR($SS_NOTIFY, $SS_RIGHT, $SS_CENTERIMAGE, $SS_NOPREFIX))
@@ -304,6 +400,8 @@ Func AfficherLanceur()
         Switch $iMsg
             Case $GUI_EVENT_CLOSE, $idQuitter
                 ExitLoop
+            Case $idGuide
+                OuvrirGuide()
             Case Else
                 ; Clic sur une carte (une application introuvable affiche un message)
                 Local $iCarte = IndexCarte($iMsg)
@@ -320,7 +418,7 @@ Func AfficherLanceur()
             $iSurvol = $iNouveau
         EndIf
 
-        ; ===== Survol du lien "Quitter" =====
+        ; ===== Survol des liens "Guide d'utilisation" et "Quitter" =====
         RG_GererSurvol($hGUI)
     WEnd
 

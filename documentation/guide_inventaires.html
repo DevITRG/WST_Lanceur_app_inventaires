@@ -1,0 +1,610 @@
+﻿<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guide des inventaires en magasin</title>
+<link rel="icon" type="image/png" href="data:image/png;base64,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">
+<style>
+  :root {
+    --rouge: #EB0026;
+    --rouge-fonce: #B3001D;
+    --rose-pale: #FFD6DD;
+    --rose-fond: #FDEAED;
+    --ivoire: #FAF6F3;
+    --blanc: #FFFFFF;
+    --texte: #2B2B2B;
+    --texte-doux: #6E6E6E;
+    --filet: #E8DEDA;
+    --attention: #C26A00;
+    --attention-fond: #FFF4E5;
+    --succes: #2E7D32;
+    --succes-fond: #EAF5EA;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--ivoire);
+    color: var(--texte);
+    font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* ===== Bandeau ===== */
+  .bandeau {
+    background: var(--rouge);
+    color: var(--blanc);
+    padding: 28px 16px;
+  }
+  .bandeau .contenu {
+    max-width: 960px; margin: 0 auto;
+    display: flex; align-items: center; gap: 22px;
+  }
+  .bandeau img { width: 72px; height: 72px; flex: none; }
+  .bandeau h1 {
+    margin: 0; font-family: "Segoe UI Light", "Segoe UI", sans-serif;
+    font-weight: 300; font-size: 34px; line-height: 1.15;
+  }
+  .bandeau .marque {
+    margin-top: 6px; color: var(--rose-pale);
+    font-size: 12px; font-weight: 600; letter-spacing: .35em;
+  }
+
+  main { max-width: 960px; margin: 0 auto; padding: 8px 16px 64px; }
+
+  /* ===== Sommaire ===== */
+  .sommaire {
+    background: var(--blanc); border-left: 6px solid var(--rouge);
+    padding: 18px 24px; margin: 28px 0 8px;
+  }
+  .sommaire h2 { margin: 0 0 8px; font-size: 13px; letter-spacing: .12em; color: var(--rouge); text-transform: uppercase; }
+  .sommaire ol { margin: 0; padding-left: 22px; columns: 2; column-gap: 32px; }
+  .sommaire li { break-inside: avoid; padding: 2px 0; }
+  .sommaire a { color: var(--texte); text-decoration: none; }
+  .sommaire a:hover { color: var(--rouge); text-decoration: underline; }
+
+  /* ===== Sections ===== */
+  section { margin-top: 44px; }
+  h2.titre {
+    display: flex; align-items: center; gap: 14px;
+    font-size: 26px; font-weight: 600; margin: 0 0 14px;
+  }
+  h2.titre .num {
+    flex: none; width: 40px; height: 40px; border-radius: 50%;
+    background: var(--rouge); color: var(--blanc);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 700;
+  }
+  h3 { font-size: 13px; letter-spacing: .12em; color: var(--rouge); text-transform: uppercase; margin: 26px 0 8px; }
+  p { margin: 8px 0; }
+  .doux { color: var(--texte-doux); }
+
+  /* ===== Cartes ===== */
+  .cartes { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin: 14px 0; }
+  .carte { background: var(--blanc); border-left: 6px solid var(--rouge); padding: 16px 18px; }
+  .carte h4 { margin: 0 0 6px; font-size: 18px; }
+  .carte p { margin: 4px 0; color: var(--texte-doux); font-size: 15px; }
+  .carte .quand { margin-top: 10px; font-size: 14px; color: var(--texte); }
+
+  /* ===== Étapes ===== */
+  ol.etapes { list-style: none; counter-reset: etape; padding: 0; margin: 14px 0; }
+  ol.etapes > li {
+    counter-increment: etape; position: relative;
+    background: var(--blanc); padding: 14px 18px 14px 64px; margin-bottom: 10px;
+  }
+  ol.etapes > li::before {
+    content: counter(etape); position: absolute; left: 16px; top: 13px;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--rose-fond); color: var(--rouge);
+    display: flex; align-items: center; justify-content: center; font-weight: 700;
+  }
+
+  /* ===== Boutons et éléments de l'écran (rappels visuels) ===== */
+  .bouton { display: inline-block; padding: 1px 12px; font-weight: 600; font-size: 14px; white-space: nowrap; }
+  .bouton.principal { background: var(--rouge); color: var(--blanc); }
+  .bouton.secondaire { background: var(--rose-fond); color: var(--rouge); }
+  .lien-app { color: var(--rouge); font-weight: 600; white-space: nowrap; }
+  .lien-gris { color: var(--texte-doux); font-weight: 600; white-space: nowrap; }
+  .pastille { display: inline-block; background: var(--rose-fond); color: var(--rouge); padding: 1px 10px; font-weight: 600; font-size: 14px; }
+  .touche { display: inline-block; border: 1px solid #BBB; border-bottom-width: 3px; padding: 0 7px; font-size: 13px; background: var(--blanc); border-radius: 3px; }
+
+  /* ===== Encadrés ===== */
+  .encadre { padding: 14px 18px 14px 56px; margin: 16px 0; position: relative; }
+  .encadre::before { position: absolute; left: 18px; top: 13px; font-size: 20px; line-height: 1; }
+  .encadre strong:first-child { display: block; margin-bottom: 2px; }
+  .encadre.astuce { background: var(--succes-fond); border-left: 5px solid var(--succes); }
+  .encadre.astuce::before { content: "💡"; }
+  .encadre.important { background: var(--attention-fond); border-left: 5px solid var(--attention); }
+  .encadre.important::before { content: "⚠️"; }
+  .encadre.regle { background: var(--rose-fond); border-left: 5px solid var(--rouge); }
+  .encadre.regle::before { content: "★"; color: var(--rouge); }
+
+  /* ===== Captures d'écran =====
+     Chaque capture s'affiche dès que le fichier existe dans le dossier
+     "captures" à côté de ce document. Sinon, un emplacement indique
+     le nom du fichier attendu et ce qu'il doit montrer. */
+  figure.capture { margin: 18px 0; background: var(--blanc); padding: 12px; }
+  /* Les captures sont affichées à 75 % de leur taille réelle
+     (réglage : ECHELLE_CAPTURES, en bas du document) */
+  figure.capture img { display: block; max-width: 100%; height: auto; margin: 0 auto; border: 1px solid var(--filet); }
+  figure.capture .emplacement { display: none; }
+  figure.capture.vide img { display: none; }
+  figure.capture.vide .emplacement {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+    min-height: 220px; padding: 24px; text-align: center;
+    border: 2px dashed var(--rouge); background: repeating-linear-gradient(45deg, #FFF, #FFF 12px, var(--rose-fond) 12px, var(--rose-fond) 24px);
+  }
+  .emplacement .etiquette { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--rouge); font-weight: 700; }
+  .emplacement .fichier { font-family: Consolas, "Courier New", monospace; font-size: 15px; background: var(--blanc); padding: 2px 8px; }
+  .emplacement .consigne { color: var(--texte-doux); font-size: 14px; max-width: 560px; background: var(--blanc); padding: 4px 8px; }
+  figure.capture figcaption { margin-top: 8px; text-align: center; font-size: 14px; color: var(--texte-doux); }
+
+  /* ===== Légende d'écran ===== */
+  dl.legende { display: grid; grid-template-columns: max-content 1fr; gap: 8px 16px; background: var(--blanc); padding: 16px 20px; margin: 0 0 16px; }
+  dl.legende dt { font-weight: 600; }
+  dl.legende dd { margin: 0; color: var(--texte-doux); }
+
+  /* ===== Tableaux ===== */
+  table { width: 100%; border-collapse: collapse; background: var(--blanc); margin: 14px 0; font-size: 15px; }
+  th { background: var(--rouge); color: var(--blanc); text-align: left; padding: 10px 12px; font-weight: 600; }
+  td { padding: 10px 12px; border-bottom: 1px solid var(--filet); vertical-align: top; }
+  tr:nth-child(even) td { background: #FCFAF8; }
+  .table-defilante { overflow-x: auto; }
+
+  /* ===== FAQ ===== */
+  details { background: var(--blanc); margin: 8px 0; padding: 0 18px; }
+  summary { cursor: pointer; padding: 14px 0; font-weight: 600; list-style: none; position: relative; padding-right: 28px; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; position: absolute; right: 0; top: 10px; font-size: 22px; color: var(--rouge); }
+  details[open] summary::after { content: "–"; }
+  details > div { padding: 0 0 14px; color: var(--texte-doux); }
+
+  /* ===== Aide-mémoire ===== */
+  .memo { background: var(--blanc); border: 2px solid var(--rouge); padding: 0 0 18px; }
+  .memo .entete { background: var(--rouge); color: var(--blanc); padding: 12px 20px; font-size: 20px; font-weight: 300; font-family: "Segoe UI Light", "Segoe UI", sans-serif; }
+  .memo ol { margin: 16px 20px 0 40px; padding: 0; }
+  .memo li { margin: 6px 0; }
+  .memo .regles { margin: 16px 20px 0; padding: 12px 16px; background: var(--rose-fond); }
+
+  footer { max-width: 960px; margin: 0 auto; padding: 24px 16px 40px; color: var(--texte-doux); font-size: 13px; border-top: 1px solid var(--filet); }
+  .a-completer { background: #FFF59D; padding: 0 4px; }
+
+  @media (max-width: 640px) {
+    .bandeau h1 { font-size: 26px; }
+    .bandeau img { width: 56px; height: 56px; }
+    .sommaire ol { columns: 1; }
+    dl.legende { grid-template-columns: 1fr; }
+    h2.titre { font-size: 22px; }
+  }
+
+  /* ===== Impression ===== */
+  @media print {
+    body { background: #FFF; font-size: 11pt; }
+    .bandeau, h2.titre .num, th, .bouton.principal, .memo .entete { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .sommaire a { color: var(--texte); }
+    section { break-inside: avoid-page; }
+    section.saut { break-before: page; }
+    figure.capture, .encadre, .carte, ol.etapes > li, details, tr { break-inside: avoid; }
+    details > div { display: block !important; }
+    summary::after { display: none; }
+    figure.capture.vide { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="bandeau">
+  <div class="contenu">
+    <img src="data:image/png;base64,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" alt="Logo Rougegorge">
+    <div>
+      <h1>Guide des inventaires en magasin</h1>
+      <div class="marque">ROUGEGORGE LINGERIE</div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <nav class="sommaire">
+    <h2>Sommaire</h2>
+    <ol>
+      <li><a href="#a-quoi-ca-sert">À quoi servent ces outils ?</a></li>
+      <li><a href="#regles">Les règles d'or</a></li>
+      <li><a href="#lancer">Ouvrir un inventaire</a></li>
+      <li><a href="#ecran">Découvrir l'écran</a></li>
+      <li><a href="#selectionner">Choisir les articles</a></li>
+      <li><a href="#saison">Particularités de l'inventaire à la saison</a></li>
+      <li><a href="#creer">Créer l'inventaire</a></li>
+      <li><a href="#winstore">Retrouver l'inventaire dans Winstore</a></li>
+      <li><a href="#messages">Les messages et que faire</a></li>
+      <li><a href="#faq">Questions fréquentes</a></li>
+      <li><a href="#memo">Aide-mémoire</a></li>
+    </ol>
+  </nav>
+
+  <!-- ===================================================== 1 -->
+  <section id="a-quoi-ca-sert">
+    <h2 class="titre"><span class="num">1</span>À quoi servent ces outils ?</h2>
+    <p>Ces outils permettent de <strong>préparer un inventaire dans Winstore en quelques clics</strong> : vous choisissez les articles à compter, l'outil crée l'inventaire pour vous. Il ne vous reste plus qu'à compter les articles, comme d'habitude.</p>
+    <p>Il existe trois inventaires, selon ce que vous souhaitez compter :</p>
+
+    <div class="cartes">
+      <div class="carte">
+        <h4>Inventaire à la saison</h4>
+        <p>Les articles en stock, classés par saison (par exemple « Automne / Hiver 2025 »).</p>
+        <p class="quand"><strong>Quand ?</strong> Pour compter tout ou partie d'une ou plusieurs collections.</p>
+      </div>
+      <div class="carte">
+        <h4>Inventaire Prix Ronds</h4>
+        <p>Les articles concernés par une opération « Prix Rond » en cours, et présents en stock.</p>
+        <p class="quand"><strong>Quand ?</strong> Pendant ou avant une opération Prix Rond.</p>
+      </div>
+      <div class="carte">
+        <h4>Inventaire stock négatif</h4>
+        <p>Les articles dont le stock est négatif dans Winstore (stock « en dessous de zéro »).</p>
+        <p class="quand"><strong>Quand ?</strong> Pour corriger les stocks incohérents.</p>
+      </div>
+    </div>
+    <p>Les trois inventaires s'utilisent <strong>exactement de la même façon</strong>. Seul l'inventaire à la saison a une petite particularité, expliquée au <a href="#saison">chapitre 6</a>.</p>
+  </section>
+
+  <!-- ===================================================== 2 -->
+  <section id="regles">
+    <h2 class="titre"><span class="num">2</span>Les règles d'or</h2>
+    <div class="encadre regle">
+      <strong>Un seul inventaire à la fois.</strong>
+      Vous ne pouvez ouvrir qu'un seul des trois inventaires à la fois. Si un inventaire est déjà ouvert, l'outil vous le signale et vous ramène dessus.
+    </div>
+    <div class="encadre regle">
+      <strong>Ne fermez rien pendant la création.</strong>
+      Une fois l'inventaire lancé, une fenêtre « Création de l'inventaire en cours » s'affiche. Attendez qu'elle se ferme toute seule : cela peut prendre jusqu'à 2 minutes.
+    </div>
+    <div class="encadre regle">
+      <strong>En cas de message d'erreur : contactez la Hotline.</strong>
+      Ne relancez pas plusieurs fois l'inventaire. Notez le message et appelez la Hotline au <strong>09.78.38.00.30</strong>.
+    </div>
+  </section>
+
+  <!-- ===================================================== 3 -->
+  <section id="lancer" class="saut">
+    <h2 class="titre"><span class="num">3</span>Ouvrir un inventaire</h2>
+    <ol class="etapes">
+      <li>Ouvrez l'application <strong>Outils Inventaires</strong> depuis le menu <strong>Outils > Fonctions externes</strong> du logiciel de caisse.</li>
+      <li>La fenêtre <strong>Inventaires</strong> s'affiche avec les trois inventaires. <strong>Cliquez sur l'inventaire</strong> que vous souhaitez réaliser.</li>
+      <li>Un écran « Veuillez patienter » s'affiche quelques secondes, le temps de rechercher les articles.</li>
+    </ol>
+
+    <figure class="capture">
+      <img src="captures/01-lanceur.png" alt="Fenêtre Inventaires avec les trois inventaires" onerror="this.parentElement.classList.add('vide')">
+      <div class="emplacement">
+        <span class="etiquette">Capture à insérer</span>
+        <span class="fichier">captures/01-lanceur.png</span>
+        <span class="consigne">La fenêtre « Inventaires » (le lanceur) avec ses trois cartes, la souris posée sur une carte pour montrer qu'elle est cliquable.</span>
+      </div>
+      <figcaption>La fenêtre « Inventaires » : cliquez sur l'inventaire à réaliser.</figcaption>
+    </figure>
+
+    <figure class="capture">
+      <img src="captures/02-chargement.png" alt="Écran Veuillez patienter" onerror="this.parentElement.classList.add('vide')">
+      <div class="emplacement">
+        <span class="etiquette">Capture à insérer</span>
+        <span class="fichier">captures/02-chargement.png</span>
+        <span class="consigne">L'écran de chargement « Veuillez patienter » qui s'affiche à l'ouverture d'un inventaire.</span>
+      </div>
+      <figcaption>Le chargement prend quelques secondes.</figcaption>
+    </figure>
+
+    <div class="encadre astuce">
+      <strong>La fenêtre « Inventaires » est déjà ouverte ?</strong>
+      Si vous la relancez, l'outil remet simplement au premier plan celle qui est déjà ouverte. Et quand vous terminez un inventaire, elle revient automatiquement devant vous.
+    </div>
+  </section>
+
+  <!-- ===================================================== 4 -->
+  <section id="ecran">
+    <h2 class="titre"><span class="num">4</span>Découvrir l'écran</h2>
+    <p>L'écran est le même pour les trois inventaires. Voici ce que vous y trouvez, de haut en bas :</p>
+
+    <figure class="capture">
+      <img src="captures/03-ecran-principal.png" alt="Écran principal d'un inventaire" onerror="this.parentElement.classList.add('vide')">
+      <div class="emplacement">
+        <span class="etiquette">Capture à insérer</span>
+        <span class="fichier">captures/03-ecran-principal.png</span>
+        <span class="consigne">L'écran principal de l'inventaire Prix Ronds ou stock négatif, avec quelques articles cochés (la pastille rose doit indiquer « X articles sélectionnés »).</span>
+      </div>
+      <figcaption>L'écran principal d'un inventaire.</figcaption>
+    </figure>
+
+    <dl class="legende">
+      <dt>Bandeau rouge</dt>
+      <dd>Le nom de l'inventaire et, à droite, le <strong>numéro du prochain inventaire</strong> (par exemple IVC127).</dd>
+      <dt>Rechercher un article…</dt>
+      <dd>Tapez une partie du nom d'un article pour filtrer la liste. Le lien <span class="lien-app">Effacer</span> vide la recherche.</dd>
+      <dt>Pastille rose</dt>
+      <dd>Le <strong>nombre total d'articles cochés</strong>, même ceux cachés par une recherche. <span class="pastille">12 articles sélectionnés</span></dd>
+      <dt>Liste des articles</dt>
+      <dd>Une ligne par article : code interne, libellé, code article et quantité en stock. Cochez la case pour sélectionner l'article.</dd>
+      <dt>Boutons du bas</dt>
+      <dd><span class="lien-gris">Quitter</span>, <span class="bouton secondaire">Tout cocher</span>, <span class="bouton secondaire">Tout décocher</span> et <span class="bouton principal">Créer l'inventaire</span>.</dd>
+    </dl>
+  </section>
+
+  <!-- ===================================================== 5 -->
+  <section id="selectionner" class="saut">
+    <h2 class="titre"><span class="num">5</span>Choisir les articles</h2>
+
+    <h3>Cocher des articles</h3>
+    <p>Cliquez sur la <strong>case à gauche</strong> de chaque article à compter. La pastille rose se met à jour.</p>
+
+    <h3>Tout sélectionner</h3>
+    <p><span class="bouton secondaire">Tout cocher</span> coche <strong>toutes les lignes affichées</strong> à l'écran.</p>
+
+    <h3>Rechercher un article</h3>
+    <ol class="etapes">
+      <li>Cliquez dans le champ <em>Rechercher un article…</em> et tapez une partie du nom (par exemple <strong>dentelle</strong>).</li>
+      <li>La liste n'affiche plus que les articles correspondants. Cochez ceux qui vous intéressent, ou cliquez sur <span class="bouton secondaire">Tout cocher</span>.</li>
+      <li>Cliquez sur <span class="lien-app">Effacer</span> pour revoir toute la liste.</li>
+    </ol>
+
+    <figure class="capture">
+      <img src="captures/04-recherche.png" alt="Recherche en cours" onerror="this.parentElement.classList.add('vide')">
+      <div class="emplacement">
+        <span class="etiquette">Capture à insérer</span>
+        <span class="fichier">captures/04-recherche.png</span>
+        <span class="consigne">Une recherche en cours (par exemple « dentelle ») avec le nombre de résultats affiché à côté du lien Effacer, et quelques résultats cochés.</span>
+      </div>
+      <figcaption>La recherche filtre la liste sans perdre les articles déjà cochés.</figcaption>
+    </figure>
+
+    <div class="encadre astuce">
+      <strong>La recherche ne fait rien perdre.</strong>
+      Les articles cochés avant une recherche restent cochés, même s'ils ne sont plus affichés. La pastille rose compte toujours l'ensemble de votre sélection.
+    </div>
+
+    <h3>Tout décocher</h3>
+    <p><span class="bouton secondaire">Tout décocher</span> agit différemment selon la situation :</p>
+    <div class="table-defilante">
+      <table>
+        <tr><th>Situation</th><th>Ce qui est décoché</th></tr>
+        <tr><td><strong>Une recherche est en cours</strong></td><td>Uniquement les <strong>résultats affichés</strong>. Vos autres articles cochés sont conservés.</td></tr>
+        <tr><td><strong>Pas de recherche</strong> (champ vide)</td><td><strong>Toute votre sélection</strong>. Pour l'inventaire à la saison, une confirmation vous est demandée si des articles d'autres saisons sont cochés.</td></tr>
+      </table>
+    </div>
+
+    <h3>Trier la liste</h3>
+    <p>Cliquez sur le <strong>titre d'une colonne</strong> (Libellé, Qté…) pour trier la liste. Cliquez de nouveau pour inverser l'ordre. Vos cases cochées ne bougent pas.</p>
+  </section>
+
+  <!-- ===================================================== 6 -->
+  <section id="saison">
+    <h2 class="titre"><span class="num">6</span>Particularités de l'inventaire à la saison</h2>
+    <p>L'écran est découpé en deux : les <strong>saisons à gauche</strong>, les <strong>articles à droite</strong>.</p>
+    <ol class="etapes">
+      <li>Cliquez sur une <strong>saison</strong> à gauche : ses articles s'affichent à droite.</li>
+      <li>Cochez les articles de cette saison.</li>
+      <li>Vous pouvez ensuite <strong>cliquer sur une autre saison</strong> et cocher d'autres articles : votre première sélection est conservée.</li>
+    </ol>
+
+    <figure class="capture">
+      <img src="captures/05-saison.png" alt="Inventaire à la saison" onerror="this.parentElement.classList.add('vide')">
+      <div class="emplacement">
+        <span class="etiquette">Capture à insérer</span>
+        <span class="fichier">captures/05-saison.png</span>
+        <span class="consigne">L'inventaire à la saison avec une saison sélectionnée à gauche, des articles cochés sur plusieurs saisons : la colonne « Cochés » doit montrer des chiffres sur au moins deux saisons et la pastille « X articles sélectionnés · 2 saisons ».</span>
+      </div>
+      <figcaption>Une sélection répartie sur plusieurs saisons.</figcaption>
+    </figure>
+
+    <div class="encadre astuce">
+      <strong>Suivez votre sélection d'un coup d'œil.</strong>
+      La colonne <strong>Cochés</strong>, à gauche, indique combien d'articles sont cochés dans chaque saison. La pastille rose indique le total et le nombre de saisons concernées.
+    </div>
+  </section>
+
+  <!-- ===================================================== 7 -->
+  <section id="creer" class="saut">
+    <h2 class="titre"><span class="num">7</span>Créer l'inventaire</h2>
+    <ol class="etapes">
+      <li>Quand votre sélection est prête, cliquez sur <span class="bouton principal">Créer l'inventaire</span>.</li>
+      <li>Un message vous demande de <strong>confirmer</strong> et vous rappelle le nombre d'articles. Vérifiez puis cliquez sur <span class="bouton principal">Oui</span>.</li>
+      <li>La fenêtre <strong>Création de l'inventaire en cours</strong> s'affiche. <strong>Patientez</strong> sans rien fermer : cela peut prendre jusqu'à 2 minutes.</li>
+      <li>La fenêtre se ferme toute seule : <strong>l'inventaire est créé</strong> dans Winstore, et la fenêtre « Inventaires » revient devant vous.</li>
+    </ol>
+
+    <figure class="capture">
+      <img src="captures/06-confirmation.png" alt="Message de confirmation" onerror="this.parentElement.classList.add('vide')">
+      <div class="emplacement">
+        <span class="etiquette">Capture à insérer</span>
+        <span class="fichier">captures/06-confirmation.png</span>
+        <span class="consigne">Le message de confirmation pour une petite sélection (moins de 350 articles) : « Confirmer la création de l'inventaire pour X article(s) ? ».</span>
+      </div>
+      <figcaption>Vérifiez le nombre d'articles avant de confirmer.</figcaption>
+    </figure>
+
+    <h3>Plus de 350 articles ?</h3>
+    <p>Pour des raisons techniques, un inventaire Winstore ne peut pas dépasser 350 articles. Si vous en cochez davantage, l'outil <strong>découpe automatiquement</strong> votre sélection en plusieurs inventaires. Le message de confirmation vous l'indique.</p>
+
+    <figure class="capture">
+      <img src="captures/07-confirmation-decoupee.png" alt="Confirmation avec plusieurs inventaires" onerror="this.parentElement.classList.add('vide')">
+      <div class="emplacement">
+        <span class="etiquette">Capture à insérer</span>
+        <span class="fichier">captures/07-confirmation-decoupee.png</span>
+        <span class="consigne">Le message de confirmation pour plus de 350 articles : il annonce le découpage en plusieurs inventaires (IVC… : 350 article(s), IVC… : X article(s)). De préférence dans l'inventaire à la saison, avec la répartition par saison.</span>
+      </div>
+      <figcaption>Au-delà de 350 articles, plusieurs inventaires sont créés.</figcaption>
+    </figure>
+
+    <figure class="capture">
+      <img src="captures/08-creation-en-cours.png" alt="Création de l'inventaire en cours" onerror="this.parentElement.classList.add('vide')">
+      <div class="emplacement">
+        <span class="etiquette">Capture à insérer</span>
+        <span class="fichier">captures/08-creation-en-cours.png</span>
+        <span class="consigne">La fenêtre « Création de l'inventaire en cours » avec le compteur « Temps écoulé ».</span>
+      </div>
+      <figcaption>Patientez : la fenêtre se fermera toute seule.</figcaption>
+    </figure>
+  </section>
+
+  <!-- ===================================================== 8 -->
+  <section id="winstore">
+    <h2 class="titre"><span class="num">8</span>Retrouver l'inventaire dans Winstore</h2>
+    <p>Dans Winstore, votre inventaire porte un nom qui indique <strong>d'où il vient</strong> :</p>
+    <div class="table-defilante">
+      <table>
+        <tr><th>Inventaire</th><th>Nom dans Winstore</th></tr>
+        <tr><td>Inventaire à la saison</td><td><strong>Inv. Saison - 1 sur 1</strong></td></tr>
+        <tr><td>Inventaire Prix Ronds</td><td><strong>Inv. Prix Rond - 1 sur 1</strong></td></tr>
+        <tr><td>Inventaire stock négatif</td><td><strong>Inv. Stock Neg - 1 sur 1</strong></td></tr>
+      </table>
+    </div>
+    <p>Quand la sélection a été découpée, chaque inventaire indique sa place : pour 800 articles, vous trouverez <strong>« 1 sur 3 »</strong>, <strong>« 2 sur 3 »</strong> et <strong>« 3 sur 3 »</strong>. Pensez à compter les trois !</p>
+
+    <figure class="capture">
+      <img src="captures/09-winstore.png" alt="Liste des inventaires dans Winstore" onerror="this.parentElement.classList.add('vide')">
+      <div class="emplacement">
+        <span class="etiquette">Capture à insérer</span>
+        <span class="fichier">captures/09-winstore.png</span>
+        <span class="consigne">La liste des inventaires dans Winstore, avec au moins un inventaire « Inv. … - 1 sur 1 » et, si possible, un inventaire découpé (« 1 sur 2 », « 2 sur 2 »).</span>
+      </div>
+      <figcaption>Vos inventaires dans Winstore.</figcaption>
+    </figure>
+  </section>
+
+  <!-- ===================================================== 9 -->
+  <section id="messages" class="saut">
+    <h2 class="titre"><span class="num">9</span>Les messages et que faire</h2>
+    <p>Voici les messages que vous pouvez rencontrer. Les messages rouges (<strong style="color:var(--rouge)">ERREUR</strong>) nécessitent d'appeler la Hotline.</p>
+    <div class="table-defilante">
+      <table>
+        <tr><th>Message</th><th>Ce que cela veut dire</th><th>Que faire ?</th></tr>
+        <tr>
+          <td>« Aucun article coché. »</td>
+          <td>Vous avez cliqué sur Créer l'inventaire sans rien cocher.</td>
+          <td>Cliquez sur OK, cochez des articles, puis recommencez.</td>
+        </tr>
+        <tr>
+          <td>« L'inventaire X est déjà ouvert. Terminez-le ou fermez-le avant d'ouvrir l'inventaire Y. »</td>
+          <td>Un autre inventaire est déjà ouvert sur ce poste.</td>
+          <td>Cliquez sur OK : l'inventaire déjà ouvert revient devant vous. Terminez-le ou fermez-le, puis ouvrez le nouveau.</td>
+        </tr>
+        <tr>
+          <td>« Une intégration est déjà en cours. Réessayez dans une minute. »</td>
+          <td>Un inventaire est en train d'être créé dans Winstore.</td>
+          <td>Patientez une minute puis cliquez de nouveau sur Créer l'inventaire. Votre sélection est conservée. Si le message revient, appelez la Hotline.</td>
+        </tr>
+        <tr>
+          <td>« Décocher la totalité des X article(s) sélectionné(s) ? »</td>
+          <td>Vous allez tout décocher, y compris des articles d'autres saisons.</td>
+          <td>Oui pour tout décocher, Non pour garder votre sélection.</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--rouge)">ERREUR</strong> « L'inventaire n'a pas pu être intégré. »</td>
+          <td>Winstore n'a pas créé l'inventaire dans le délai prévu.</td>
+          <td><strong>Appelez la Hotline</strong> en précisant l'heure. Ne relancez pas l'inventaire.</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--rouge)">ERREUR</strong> « Impossible de se connecter à la base. »</td>
+          <td>L'outil n'arrive pas à joindre Winstore.</td>
+          <td><strong>Appelez la Hotline.</strong></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--rouge)">ERREUR</strong> « Cette application est introuvable. »</td>
+          <td>Un inventaire n'est pas installé correctement sur ce poste (sa carte est grisée).</td>
+          <td><strong>Appelez la Hotline.</strong></td>
+        </tr>
+      </table>
+    </div>
+
+    <figure class="capture">
+      <img src="captures/10-message-deja-ouvert.png" alt="Message inventaire déjà ouvert" onerror="this.parentElement.classList.add('vide')">
+      <div class="emplacement">
+        <span class="etiquette">Capture à insérer</span>
+        <span class="fichier">captures/10-message-deja-ouvert.png</span>
+        <span class="consigne">Le message « L'inventaire Prix Ronds est déjà ouvert… » : ouvrir un inventaire, puis en lancer un autre depuis la fenêtre Inventaires.</span>
+      </div>
+      <figcaption>Un seul inventaire à la fois.</figcaption>
+    </figure>
+
+    <figure class="capture">
+      <img src="captures/11-message-erreur.png" alt="Message d'erreur d'intégration" onerror="this.parentElement.classList.add('vide')">
+      <div class="emplacement">
+        <span class="etiquette">Capture à insérer</span>
+        <span class="fichier">captures/11-message-erreur.png</span>
+        <span class="consigne">Le message d'erreur « L'inventaire n'a pas pu être intégré. Merci de contacter la Hotline. » (étiquette ERREUR en rouge).</span>
+      </div>
+      <figcaption>Un message ERREUR : appelez la Hotline.</figcaption>
+    </figure>
+  </section>
+
+  <!-- ===================================================== 10 -->
+  <section id="faq">
+    <h2 class="titre"><span class="num">10</span>Questions fréquentes</h2>
+    <details>
+      <summary>J'ai fermé la fenêtre par erreur avant de créer l'inventaire, ma sélection est-elle perdue ?</summary>
+      <div>Oui : rien n'est créé tant que vous n'avez pas confirmé. Rouvrez l'inventaire et refaites votre sélection.</div>
+    </details>
+    <details>
+      <summary>J'ai lancé une recherche et je ne vois plus mes articles cochés. Sont-ils perdus ?</summary>
+      <div>Non. Ils sont simplement cachés par la recherche. Cliquez sur « Effacer » pour revoir toute la liste. La pastille rose indique toujours le total de votre sélection.</div>
+    </details>
+    <details>
+      <summary>Pourquoi l'outil a-t-il créé plusieurs inventaires ?</summary>
+      <div>Un inventaire Winstore est limité à 350 articles. Au-delà, l'outil découpe automatiquement votre sélection. Les inventaires portent les mentions « 1 sur 2 », « 2 sur 2 »… dans Winstore : comptez-les tous.</div>
+    </details>
+    <details>
+      <summary>Je ne trouve pas un article dans la liste.</summary>
+      <div>Chaque inventaire ne propose que certains articles : ceux en stock pour l'inventaire à la saison (dans la bonne saison), ceux d'une opération Prix Rond en cours, ou ceux dont le stock est négatif. Si l'article devrait apparaître, signalez-le à la Hotline.</div>
+    </details>
+    <details>
+      <summary>La création prend du temps, est-ce normal ?</summary>
+      <div>Oui, jusqu'à 2 minutes. Winstore traite les demandes à intervalles réguliers. Ne fermez pas la fenêtre : elle se fermera d'elle-même.</div>
+    </details>
+    <details>
+      <summary>Le numéro du prochain inventaire (IVC…) a changé pendant que je travaillais.</summary>
+      <div>C'est normal si un autre inventaire a été créé entre-temps sur le magasin. L'outil se met à jour automatiquement au moment de créer l'inventaire.</div>
+    </details>
+  </section>
+
+  <!-- ===================================================== 11 -->
+  <section id="memo" class="saut">
+    <h2 class="titre"><span class="num">11</span>Aide-mémoire</h2>
+    <p class="doux">Cette page peut être imprimée et affichée près du poste.</p>
+    <div class="memo">
+      <div class="entete">Créer un inventaire en 5 étapes</div>
+      <ol>
+        <li>Ouvrez <strong>Inventaires</strong> et cliquez sur l'inventaire souhaité.</li>
+        <li><strong>Cochez</strong> les articles (utilisez la recherche si besoin).</li>
+        <li>Vérifiez la <strong>pastille rose</strong> : c'est le nombre total d'articles cochés.</li>
+        <li>Cliquez sur <span class="bouton principal">Créer l'inventaire</span> puis sur <span class="bouton principal">Oui</span>.</li>
+        <li><strong>Patientez</strong> jusqu'à la fermeture de la fenêtre (2 minutes maximum).</li>
+      </ol>
+      <div class="regles">
+        <strong>À retenir :</strong> un seul inventaire ouvert à la fois · ne fermez rien pendant la création ·
+        au-delà de 350 articles, plusieurs inventaires sont créés (« 1 sur 2 », « 2 sur 2 ») ·
+        message <strong style="color:var(--rouge)">ERREUR</strong> = Hotline <strong>09.78.38.00.30.</strong>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Guide des inventaires en magasin — Rougegorge Lingerie · Version du 13 octobre 2026
+</footer>
+
+<script>
+  // Taille d'affichage des captures, en proportion de leur taille réelle
+  var ECHELLE_CAPTURES = 0.75;
+
+  document.querySelectorAll('figure.capture img').forEach(function (img) {
+    function reduire() {
+      if (img.naturalWidth) img.style.width = Math.round(img.naturalWidth * ECHELLE_CAPTURES) + 'px';
+    }
+    if (img.complete) reduire(); else img.addEventListener('load', reduire);
+  });
+</script>
+
+</body>
+</html>
