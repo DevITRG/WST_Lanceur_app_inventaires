@@ -1,7 +1,7 @@
 ﻿#Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_Icon=logo-RG.ico
 #AutoIt3Wrapper_Res_Description=RG - Inventaires
-#AutoIt3Wrapper_Res_Fileversion=1.0.0.7
+#AutoIt3Wrapper_Res_Fileversion=1.0.0.9
 #AutoIt3Wrapper_Res_Fileversion_AutoIncrement=y
 #AutoIt3Wrapper_Res_ProductName=RG - Lanceur Inventaires
 #AutoIt3Wrapper_Res_ProductVersion=%fileversion%
@@ -34,7 +34,7 @@
 ;   (deux inventaires simultanes se bloqueraient sur Transfer.txt).
 ; - Une application absente est affichee grisee ("introuvable").
 ; - Lien "Guide d'utilisation" en bas de la fenetre : ouvre
-;   documentation\guide_inventaires.html (a cote du lanceur),
+;   documentation\guide_inventaires_autonome.html (a cote du lanceur),
 ;   dans une fenetre Chrome/Edge sans barre d'adresse.
 ; ============================================================
 
@@ -51,8 +51,9 @@ Global Const $g_sNomMutex = "RG_Lanceur_Inventaires"
 Global $g_sDossierApplis = @ScriptDir
 
 ; Guide d'utilisation (lien en bas de la fenetre) : sous-dossier
-; "documentation" a cote du lanceur, avec son dossier "captures"
-Global $g_sFichierGuide = @ScriptDir & "\documentation\guide_inventaires.html"
+; "documentation" a cote du lanceur. Version autonome : les captures
+; sont integrees au fichier (base64), aucun dossier "captures" requis.
+Global $g_sFichierGuide = @ScriptDir & "\documentation\guide_inventaires_autonome.html"
 ; Le guide s'ouvre dans une fenetre Chrome (ou Edge) en mode
 ; application, maximisee, sans barre d'adresse ni barre de favoris.
 ; Sans Chrome ni Edge, il s'ouvre dans le navigateur par defaut.
@@ -204,14 +205,18 @@ Func OuvrirGuide()
 
     ; Adresse file:/// du guide (espaces encodes)
     Local $sUrl = "file:///" & StringReplace(StringReplace($g_sFichierGuide, "\", "/"), " ", "%20")
+    ; Titre EXACT de la fenetre en mode application. Un onglet Chrome
+    ; ordinaire sur le guide s'appelle "<titre> - Google Chrome" : il
+    ; ne doit pas etre confondu avec la fenetre a maximiser.
+    Local $sTitreExact = "[REGEXPTITLE:^" & StringRegExpReplace($g_sTitreGuide, "([\\.^$|?*+()\[\]{}])", "\\$1") & "$]"
     Local $aNavigateurs[2] = ["chrome.exe", "msedge.exe"]
     For $sExe In $aNavigateurs
         Local $sNavigateur = CheminNavigateur($sExe)
         If $sNavigateur = "" Then ContinueLoop
+        ; Fenetres du guide deja ouvertes : a ignorer
+        Local $aAvant = WinList($sTitreExact)
         If Run('"' & $sNavigateur & '" --app="' & $sUrl & '" --start-maximized') Then
-            ; Filet de securite : maximise la fenetre si elle ne l'est pas
-            Local $hFen = WinWait("[TITLE:" & $g_sTitreGuide & "]", "", 5)
-            If $hFen And Not BitAND(WinGetState($hFen), $WIN_STATE_MAXIMIZED) Then WinSetState($hFen, "", @SW_MAXIMIZE)
+            MaximiserNouvelleFenetre($sTitreExact, $aAvant)
             Return
         EndIf
     Next
@@ -222,6 +227,35 @@ Func OuvrirGuide()
                 "Le guide d'utilisation n'a pas pu être ouvert." & @CRLF & @CRLF & _
                 "Merci de contacter la Hotline.")
     EndIf
+EndFunc
+
+; Maximise la fenetre du guide qui vient de s'ouvrir (absente de
+; $aAvant). Le navigateur ignore --start-maximized s'il est deja
+; lance, et peut redimensionner sa fenetre juste apres l'avoir
+; affichee : on attend qu'elle reste maximisee 1 s (8 s au plus).
+Func MaximiserNouvelleFenetre($sTitre, $aAvant)
+    Local $hDebut = TimerInit(), $iStable = 0
+    While TimerDiff($hDebut) < 8000
+        Local $aFen = WinList($sTitre)
+        For $i = 1 To $aFen[0][0]
+            Local $hFen = $aFen[$i][1], $bAncienne = False
+            For $j = 1 To $aAvant[0][0]
+                If $aAvant[$j][1] = $hFen Then $bAncienne = True
+            Next
+            If $bAncienne Then ContinueLoop
+            Local $iEtat = WinGetState($hFen)
+            If Not BitAND($iEtat, $WIN_STATE_VISIBLE) Then ContinueLoop
+            If BitAND($iEtat, $WIN_STATE_MAXIMIZED) Then
+                $iStable += 1
+                If $iStable >= 4 Then Return
+            Else
+                $iStable = 0
+                WinSetState($hFen, "", @SW_MAXIMIZE)
+            EndIf
+            ExitLoop
+        Next
+        Sleep(250)
+    WEnd
 EndFunc
 
 ; Chemin complet d'un navigateur (chrome.exe, msedge.exe), "" s'il

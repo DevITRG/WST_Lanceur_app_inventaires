@@ -1,5 +1,17 @@
 ﻿# Changelog — Lanceur d'inventaires (`lanceur_inventaires.au3`)
 
+## [1.0.0.9] — 2026-10-22
+
+### Modifié et corrigé
+- **Guide autonome** : le lien « Guide d'utilisation » ouvre désormais `documentation\guide_inventaires_autonome.html`, un fichier unique dans lequel les captures d'écran sont intégrées (base64). Le dossier `captures\` n'est plus nécessaire sur les postes.
+- **Correction : le guide ne s'ouvrait pas toujours maximisé.** Quand le guide était déjà ouvert dans un onglet Chrome ordinaire, le lanceur maximisait cette ancienne fenêtre au lieu de la nouvelle.
+
+### Technique
+- Recherche de la fenêtre par son titre **exact** (`[REGEXPTITLE:^…$]`) : un onglet ordinaire, intitulé « <titre> - Google Chrome », n'est plus confondu avec la fenêtre en mode application.
+- Nouvelle fonction `MaximiserNouvelleFenetre()` : ignore les fenêtres du guide déjà ouvertes avant le lancement, maximise la nouvelle et attend qu'elle reste maximisée 1 s (8 s au plus), au cas où le navigateur la redimensionnerait juste après l'avoir affichée. Le navigateur ignore `--start-maximized` lorsqu'il est déjà lancé.
+- La version 1.0.0.8 était une compilation de test, jamais publiée.
+- `RG_Charte.au3` est inchangé.
+
 ## [1.0.0.7] — 2026-10-13
 
 ### Modifié
