@@ -5,6 +5,7 @@
 ### Modifié et corrigé
 - **Guide autonome** : le lien « Guide d'utilisation » ouvre désormais `documentation\guide_inventaires_autonome.html`, un fichier unique dans lequel les captures d'écran sont intégrées (base64). Le dossier `captures\` n'est plus nécessaire sur les postes.
 - **Correction : le guide ne s'ouvrait pas toujours maximisé.** Quand le guide était déjà ouvert dans un onglet Chrome ordinaire, le lanceur maximisait cette ancienne fenêtre au lieu de la nouvelle.
+- **Guide mis à jour** : nouveau chapitre 9 « Finaliser l'inventaire dans Winstore » (sélection découpée en plusieurs inventaires : bipper tout en une fois, rejets « Article hors périmètre » normaux au déchargement, répondre ESC à « Effacer définitivement les données ? » jusqu'au dernier inventaire), avec 2 nouvelles captures ; chapitres suivants renumérotés 10 à 12 ; capture du lanceur remplacée.
 
 ### Technique
 - Recherche de la fenêtre par son titre **exact** (`[REGEXPTITLE:^…$]`) : un onglet ordinaire, intitulé « <titre> - Google Chrome », n'est plus confondu avec la fenêtre en mode application.
